@@ -29,6 +29,10 @@ resource "azuread_application" "passport_status" {
   privacy_statement_url = "https://www.canada.ca/en/transparency/privacy.html"
   terms_of_service_url  = "https://www.canada.ca/en/transparency/terms.html"
 
+  api {
+    requested_access_token_version = 2
+  }
+
   app_role {
     id                   = local.app_role_application_manage_id
     allowed_member_types = ["Application", "User"]
