@@ -93,6 +93,7 @@ resource "azuread_application" "passport_status" {
   single_page_application {
     redirect_uris = [
       "http://localhost:8080/swagger-ui/oauth2-redirect.html",
+      "https://passport-status-api.localtest.me/swagger-ui/oauth2-redirect.html",
       "https://passport-status-api.dev.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html",
       "https://passport-status-api.staging.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html"
     ]
