@@ -11,6 +11,34 @@ locals {
   app_role_application_manage_id    = "397c5695-d01c-4089-8546-2b4a1ebdb493"
   app_role_passport_status_read_id  = "c8c40019-c97b-40e0-aaf2-86e529c15c62"
   app_role_passport_status_write_id = "7403810e-986d-49d1-9205-a8918af78e12"
+
+  # This application ID is hardcoded (as opposed to using something like random_uuid)
+  # because changing it would result in new resources being created
+  spn_application_id    = "de3625ec-c6e6-46a6-b761-7b1039ab546a"
+}
+
+data "azuread_users" "service_principal_owners" {
+  # Enterprise application owners have the ability to manage all aspects of an enterprise application.
+  # see: https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/overview-assign-app-owners
+  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/users
+  user_principal_names = var.resource_owners
+}
+
+resource "azuread_service_principal" "passport_status" {
+  # AAD enterprise applications are just specialized service principals
+  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal
+
+  # Note: application_id is a random UUID, but hardcoded
+  # because changing this would result in a new resource being created
+  application_id = local.spn_application_id
+
+  app_role_assignment_required = true
+  owners                       = data.azuread_users.service_principal_owners.object_ids
+
+  feature_tags {
+    enterprise = true
+    hide       = true
+  }
 }
 
 data "azuread_users" "application_owners" {
@@ -105,7 +133,7 @@ resource "azuread_application" "passport_status" {
 }
 
 # #############################################################################
-# SPN app role assignments...
+# Passport Status SPN app role assignments...
 # #############################################################################
 
 resource "azuread_app_role_assignment" "app_role_application_manage_admin_consent" {
@@ -126,6 +154,22 @@ resource "azuread_app_role_assignment" "app_role_passport_status_write_admin_con
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   app_role_id         = local.app_role_passport_status_write_id
   principal_object_id = azuread_service_principal.passport_status.object_id
+  resource_object_id  = azuread_service_principal.passport_status.object_id
+}
+
+# #############################################################################
+# 3rd party SPN app role assignments...
+# #############################################################################
+
+data "azuread_service_principal" "interop_dev" {
+  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal
+  application_id = "1195e158-9401-4a17-afb7-c83f32409bb9"
+}
+
+resource "azuread_app_role_assignment" "app_role_interop_write_admin_consent" {
+  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
+  app_role_id         = local.app_role_passport_status_write_id
+  principal_object_id = data.azuread_service_principal.interop_dev.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
 
