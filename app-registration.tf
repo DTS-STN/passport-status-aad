@@ -210,12 +210,12 @@ data "azuread_service_principal" "interop_dev" {
   display_name = "interop-sa-esdc-backends-dev"
 }
 
-resource "azuread_app_role_assignment" "app_role_interop_dev_write_admin_consent" {
-  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_id
-  principal_object_id = data.azuread_service_principal.interop_dev.object_id
-  resource_object_id  = azuread_service_principal.passport_status.object_id
-}
+# resource "azuread_app_role_assignment" "app_role_interop_dev_write_admin_consent" {
+#   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
+#   app_role_id         = local.app_role_passport_status_write_id
+#   principal_object_id = data.azuread_service_principal.interop_dev.object_id
+#   resource_object_id  = azuread_service_principal.passport_status.object_id
+# }
 
 resource "azuread_app_role_assignment" "app_role_interop_dev_write_all_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
@@ -229,12 +229,12 @@ data "azuread_service_principal" "interop" {
   display_name = "interop-sa-esdc-backends"
 }
 
-resource "azuread_app_role_assignment" "app_role_interop_write_admin_consent" {
-  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_id
-  principal_object_id = data.azuread_service_principal.interop.object_id
-  resource_object_id  = azuread_service_principal.passport_status.object_id
-}
+# resource "azuread_app_role_assignment" "app_role_interop_write_admin_consent" {
+#   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
+#   app_role_id         = local.app_role_passport_status_write_id
+#   principal_object_id = data.azuread_service_principal.interop.object_id
+#   resource_object_id  = azuread_service_principal.passport_status.object_id
+# }
 
 resource "azuread_app_role_assignment" "app_role_interop_write_all_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
