@@ -26,7 +26,10 @@ variable "passport_status_readers" {
 
   default = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
+    "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
+    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 }
@@ -37,7 +40,10 @@ variable "admin_passport_status_readers" {
 
   default = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
+    "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
+    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 }
@@ -48,7 +54,10 @@ variable "passport_status_writers" {
 
   default = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
+    "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
+    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 }
@@ -59,7 +68,10 @@ variable "admin_passport_status_writers" {
 
   default = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
+    "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
+    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 }
