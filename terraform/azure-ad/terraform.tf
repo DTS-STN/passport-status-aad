@@ -12,11 +12,15 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.29.0"
     }
-
     azurerm = {
       # see: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs
       source  = "hashicorp/azurerm"
-      version = "~> 3.26.0"
+      version = "~> 3.28.0"
+    }
+    random = {
+      # see https://registry.terraform.io/providers/hashicorp/random/
+      source = "hashicorp/random"
+      version = "~> 3.4.0"
     }
   }
 }

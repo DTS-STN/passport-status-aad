@@ -5,19 +5,12 @@
 # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application
 # #############################################################################
 
-locals {
-  # These app role IDs are hardcoded (as opposed to using something like random_uuid)
-  # because changing them would result in new resources being created
-  app_role_application_manage_id        = "397c5695-d01c-4089-8546-2b4a1ebdb493"
-  app_role_passport_status_read_id      = "c8c40019-c97b-40e0-aaf2-86e529c15c62"
-  app_role_passport_status_read_all_id  = "27caf772-d719-4228-87ee-21c76492290d"
-  app_role_passport_status_write_id     = "7403810e-986d-49d1-9205-a8918af78e12"
-  app_role_passport_status_write_all_id = "40b9001b-ebd2-4d7c-8e69-b7dea630245f"
-
-  # This application ID is hardcoded (as opposed to using something like random_uuid)
-  # because changing it would result in new resources being created
-  spn_application_id    = "de3625ec-c6e6-46a6-b761-7b1039ab546a"
-}
+resource "random_uuid" "app_role_application_manage_id" {}
+resource "random_uuid" "app_role_passport_status_read_id" {}
+resource "random_uuid" "app_role_passport_status_read_all_id" {}
+resource "random_uuid" "app_role_passport_status_write_id" {}
+resource "random_uuid" "app_role_passport_status_write_all_id" {}
+resource "random_uuid" "spn_application_id" {}
 
 data "azuread_users" "service_principal_owners" {
   # Enterprise application owners have the ability to manage all aspects of an enterprise application.
@@ -30,10 +23,7 @@ resource "azuread_service_principal" "passport_status" {
   # AAD enterprise applications are just specialized service principals
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal
 
-  # Note: application_id is a random UUID, but hardcoded
-  # because changing this would result in a new resource being created
-  application_id = local.spn_application_id
-
+  application_id               = azuread_application.passport_status.application_id
   app_role_assignment_required = true
   owners                       = data.azuread_users.service_principal_owners.object_ids
 
@@ -52,8 +42,8 @@ data "azuread_users" "application_owners" {
 resource "azuread_application" "passport_status" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application
 
-  display_name          = "Passport Status"
-  identifier_uris       = ["api://passport-status.esdc-edsc.gc.ca"]
+  display_name          = var.application_display_name
+  identifier_uris       = var.application_identifier_uris
   logo_image            = filebase64("assets/logo.png")
   owners                = data.azuread_users.application_owners.object_ids
   privacy_statement_url = "https://www.canada.ca/en/transparency/privacy.html"
@@ -64,7 +54,7 @@ resource "azuread_application" "passport_status" {
   }
 
   app_role {
-    id                   = local.app_role_application_manage_id
+    id                   = random_uuid.app_role_application_manage_id.result
     allowed_member_types = ["Application", "User"]
     description          = "Application managers have the ability to manage the Passport Status application via it's various actuator and management endpoints."
     display_name         = "Application managers"
@@ -72,7 +62,7 @@ resource "azuread_application" "passport_status" {
   }
 
   app_role {
-    id                   = local.app_role_passport_status_read_id
+    id                   = random_uuid.app_role_passport_status_read_id.result
     allowed_member_types = ["Application", "User"]
     description          = "Passport status readers have the ability to read their own passport statuses."
     display_name         = "Passport status readers"
@@ -80,7 +70,7 @@ resource "azuread_application" "passport_status" {
   }
 
   app_role {
-    id                   = local.app_role_passport_status_read_all_id
+    id                   = random_uuid.app_role_passport_status_read_all_id.result
     allowed_member_types = ["Application", "User"]
     description          = "Admin passport status readers have the ability to read all passport statuses."
     display_name         = "Admin passport status readers"
@@ -88,7 +78,7 @@ resource "azuread_application" "passport_status" {
   }
 
   app_role {
-    id                   = local.app_role_passport_status_write_id
+    id                   = random_uuid.app_role_passport_status_write_id.result
     allowed_member_types = ["Application", "User"]
     description          = "Passport status writers have the ability to create, read, update, and delete their own passport statuses."
     display_name         = "Passport status writers"
@@ -96,70 +86,33 @@ resource "azuread_application" "passport_status" {
   }
 
   app_role {
-    id                   = local.app_role_passport_status_write_all_id
+    id                   = random_uuid.app_role_passport_status_write_all_id.result
     allowed_member_types = ["Application", "User"]
     description          = "Admin passport status writers have the ability to create, read, update, and delete all passport statuses."
     display_name         = "Admin passport status writers"
     value                = "PassportStatus.Write.All"
   }
 
-  required_resource_access {
-    resource_app_id = azuread_service_principal.passport_status.application_id
-
-    resource_access {
-      # Application.Manage
-      id   = local.app_role_application_manage_id
-      type = "Role"
-    }
-
-    resource_access {
-      # PassportStatus.Read
-      id   = local.app_role_passport_status_read_id
-      type = "Role"
-    }
-
-    resource_access {
-      # PassportStatus.Read.All
-      id   = local.app_role_passport_status_read_all_id
-      type = "Role"
-    }
-
-    resource_access {
-      # PassportStatus.Write
-      id   = local.app_role_passport_status_write_id
-      type = "Role"
-    }
-
-    resource_access {
-      # PassportStatus.Write.All
-      id   = local.app_role_passport_status_write_all_id
-      type = "Role"
-    }
-  }
-
-  required_resource_access {
-    # Microsoft Graph API
-    resource_app_id = "00000003-0000-0000-c000-000000000000"
-
-    resource_access {
-      # User.Read
-      id   = "e1fe6dd8-ba31-4d61-89e7-88639da4683d"
-      type = "Scope"
-    }
-  }
-
   single_page_application {
-    redirect_uris = [
-      "http://localhost:8080/swagger-ui/oauth2-redirect.html",
-      "https://passport-status-api.localtest.me/swagger-ui/oauth2-redirect.html",
-      "https://passport-status-api.dev.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html",
-      "https://passport-status-api.staging.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html"
-    ]
+    redirect_uris = var.application_spa_redirect_uris
   }
 
   web {
     homepage_url = "https://www.canada.ca/en.html"
   }
+
+  lifecycle {
+    ignore_changes = [
+      # TODO :: GjB :: figure out how to get this working
+      required_resource_access
+    ]
+  }
+}
+
+resource "azuread_application_password" "passport_status" {
+  application_object_id = azuread_application.passport_status.object_id
+  display_name          = "Default secret"
+  end_date_relative     = "876000h"
 }
 
 # #############################################################################
@@ -168,35 +121,35 @@ resource "azuread_application" "passport_status" {
 
 resource "azuread_app_role_assignment" "app_role_application_manage_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_application_manage_id
+  app_role_id         = random_uuid.app_role_application_manage_id.result
   principal_object_id = azuread_service_principal.passport_status.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
 
 resource "azuread_app_role_assignment" "app_role_passport_status_read_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_read_id
+  app_role_id         = random_uuid.app_role_passport_status_read_id.result
   principal_object_id = azuread_service_principal.passport_status.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
 
 resource "azuread_app_role_assignment" "app_role_passport_status_read_all_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_read_all_id
+  app_role_id         = random_uuid.app_role_passport_status_read_all_id.result
   principal_object_id = azuread_service_principal.passport_status.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
 
 resource "azuread_app_role_assignment" "app_role_passport_status_write_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_id
+  app_role_id         = random_uuid.app_role_passport_status_write_id.result
   principal_object_id = azuread_service_principal.passport_status.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
 
 resource "azuread_app_role_assignment" "app_role_passport_status_write_all_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_all_id
+  app_role_id         = random_uuid.app_role_passport_status_write_all_id.result
   principal_object_id = azuread_service_principal.passport_status.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -205,40 +158,14 @@ resource "azuread_app_role_assignment" "app_role_passport_status_write_all_admin
 # 3rd party SPN app role assignments...
 # #############################################################################
 
-data "azuread_service_principal" "interop_dev" {
-  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal
-  display_name = "interop-sa-esdc-backends-dev"
-}
-
-# resource "azuread_app_role_assignment" "app_role_interop_dev_write_admin_consent" {
-#   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-#   app_role_id         = local.app_role_passport_status_write_id
-#   principal_object_id = data.azuread_service_principal.interop_dev.object_id
-#   resource_object_id  = azuread_service_principal.passport_status.object_id
-# }
-
-resource "azuread_app_role_assignment" "app_role_interop_dev_write_all_admin_consent" {
-  # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_all_id
-  principal_object_id = data.azuread_service_principal.interop_dev.object_id
-  resource_object_id  = azuread_service_principal.passport_status.object_id
-}
-
 data "azuread_service_principal" "interop" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal
-  display_name = "interop-sa-esdc-backends"
+  display_name = var.interop_service_principal_name
 }
-
-# resource "azuread_app_role_assignment" "app_role_interop_write_admin_consent" {
-#   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-#   app_role_id         = local.app_role_passport_status_write_id
-#   principal_object_id = data.azuread_service_principal.interop.object_id
-#   resource_object_id  = azuread_service_principal.passport_status.object_id
-# }
 
 resource "azuread_app_role_assignment" "app_role_interop_write_all_admin_consent" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
-  app_role_id         = local.app_role_passport_status_write_all_id
+  app_role_id         = random_uuid.app_role_passport_status_write_all_id.result
   principal_object_id = data.azuread_service_principal.interop.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -256,7 +183,7 @@ resource "azuread_app_role_assignment" "app_role_application_manage" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   for_each = { for user in data.azuread_users.app_role_application_manage_users.users : user.user_principal_name => user }
 
-  app_role_id         = local.app_role_application_manage_id
+  app_role_id         = random_uuid.app_role_application_manage_id.result
   principal_object_id = each.value.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -270,7 +197,7 @@ resource "azuread_app_role_assignment" "app_role_passport_status_read" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   for_each = { for user in data.azuread_users.app_role_passport_status_read_users.users : user.user_principal_name => user }
 
-  app_role_id         = local.app_role_passport_status_read_id
+  app_role_id         = random_uuid.app_role_passport_status_read_id.result
   principal_object_id = each.value.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -284,7 +211,7 @@ resource "azuread_app_role_assignment" "app_role_admin_passport_status_read" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   for_each = { for user in data.azuread_users.app_role_admin_passport_status_read_users.users : user.user_principal_name => user }
 
-  app_role_id         = local.app_role_passport_status_read_all_id
+  app_role_id         = random_uuid.app_role_passport_status_read_all_id.result
   principal_object_id = each.value.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -298,7 +225,7 @@ resource "azuread_app_role_assignment" "app_role_passport_status_write" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   for_each = { for user in data.azuread_users.app_role_passport_status_write_users.users : user.user_principal_name => user }
 
-  app_role_id         = local.app_role_passport_status_write_id
+  app_role_id         = random_uuid.app_role_passport_status_write_id.result
   principal_object_id = each.value.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
@@ -312,7 +239,7 @@ resource "azuread_app_role_assignment" "app_role_admin_passport_status_write" {
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment
   for_each = { for user in data.azuread_users.app_role_admin_passport_status_write_users.users : user.user_principal_name => user }
 
-  app_role_id         = local.app_role_passport_status_write_all_id
+  app_role_id         = random_uuid.app_role_passport_status_write_all_id.result
   principal_object_id = each.value.object_id
   resource_object_id  = azuread_service_principal.passport_status.object_id
 }
