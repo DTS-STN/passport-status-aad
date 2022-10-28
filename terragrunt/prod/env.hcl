@@ -1,5 +1,5 @@
 # Variables that are common to all regions.
-# Usage: env_config = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+# Usage: env_config = read_terragrunt_config("env.hcl")
 
 locals {
   common_config = read_terragrunt_config(find_in_parent_folders("common.hcl"))
