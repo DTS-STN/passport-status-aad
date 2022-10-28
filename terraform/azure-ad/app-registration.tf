@@ -104,6 +104,13 @@ resource "azuread_application" "passport_status" {
   lifecycle {
     ignore_changes = [
       # TODO :: GjB :: figure out how to get this working
+      #
+      # Explanation: we typically configure the main Passport Status OAuth client
+      # in Swagger to allow developers to authenticate to access protected endpoints.
+      # For that to work, we have to add all of the app_roles above to the azuread_application,
+      # but since that requires knowing the application id (client id), we can't do it here.
+      # That mapping is done afterwards in the Azure portal, which ultimately alterst he
+      # required_resource_access attribute, triggering terraform.
       required_resource_access
     ]
   }
