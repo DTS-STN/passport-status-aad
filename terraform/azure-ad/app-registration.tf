@@ -80,6 +80,17 @@ resource "azuread_application" "passport_status" {
     value                = "PassportStatus.Write.All"
   }
 
+  required_resource_access {
+    # Microsoft Graph API
+    resource_app_id = "00000003-0000-0000-c000-000000000000"
+
+    resource_access {
+      # User.Read
+      id   = "e1fe6dd8-ba31-4d61-89e7-88639da4683d"
+      type = "Scope"
+    }
+  }
+
   single_page_application {
     redirect_uris = var.application_spa_redirect_uris
   }
