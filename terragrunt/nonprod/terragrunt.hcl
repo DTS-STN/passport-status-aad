@@ -20,18 +20,21 @@ inputs = {
 
   resource_owners = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
   application_managers = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
   passport_status_readers = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
     "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
@@ -41,6 +44,7 @@ inputs = {
 
   admin_passport_status_readers = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
     "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
@@ -50,6 +54,7 @@ inputs = {
 
   passport_status_writers = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
     "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
@@ -59,6 +64,7 @@ inputs = {
 
   admin_passport_status_writers = [
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
+    "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
     "maxim.lam@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
