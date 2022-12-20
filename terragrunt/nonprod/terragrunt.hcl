@@ -14,9 +14,10 @@ inputs = {
   application_spa_redirect_uris = [
     "http://localhost:8080/swagger-ui/oauth2-redirect.html",
     "https://passport-status-api.localtest.me/swagger-ui/oauth2-redirect.html",
-    "https://passport-status-api.dev.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html",
-    "https://passport-status-api.staging.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html",
-    "https://passport-status-api.test.dev-rhp.dts-stn.com/swagger-ui/oauth2-redirect.html",
+    "https://passport-status-api.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
+    "https://passport-status-api-test.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
+    "https://passport-status-api-staging.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
+    "https://passport-status-api-nightly.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
   ]
 
   resource_owners = [
