@@ -17,6 +17,7 @@ inputs = {
     "https://passport-status-api-dev.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
     "https://passport-status-api-test.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
     "https://passport-status-api-staging.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
+    "https://passport-status-api-staging.dev-dp.dts-stn.com/swagger-ui/oauth2-redirect.html",
     "https://passport-status-api-nightly.dev-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
   ]
 
