@@ -36,6 +36,7 @@ inputs = {
   ]
 
   passport_status_readers = [
+    "adam.andrews@hrsdc-rhdcc.gc.ca",
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
@@ -46,6 +47,7 @@ inputs = {
   ]
 
   admin_passport_status_readers = [
+    "adam.andrews@hrsdc-rhdcc.gc.ca",
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
@@ -56,6 +58,7 @@ inputs = {
   ]
 
   passport_status_writers = [
+    "adam.andrews@hrsdc-rhdcc.gc.ca",
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
@@ -66,6 +69,7 @@ inputs = {
   ]
 
   admin_passport_status_writers = [
+    "adam.andrews@hrsdc-rhdcc.gc.ca",
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
