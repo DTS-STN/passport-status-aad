@@ -12,8 +12,7 @@ inputs = {
   interop_service_principal_name = "interop-sa-esdc-backends"
 
   application_spa_redirect_uris = [
-    "https://passport-status-api.prod-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html",
-    "https://passport-status-api.prod-dp.dts-stn.com/swagger-ui/oauth2-redirect.html"
+    "https://passport-status-api.prod-dp-internal.dts-stn.com/swagger-ui/oauth2-redirect.html"
   ]
 
   resource_owners = [
@@ -30,43 +29,11 @@ inputs = {
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
-  passport_status_readers = [
-    "gregory.j.baker@hrsdc-rhdcc.gc.ca",
-    "ken.blanchard@hrsdc-rhdcc.gc.ca",
-    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
-    "maxim.lam@hrsdc-rhdcc.gc.ca",
-    "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
-    "stefan.oconnell@hrsdc-rhdcc.gc.ca"
-  ]
+  passport_status_readers = []
 
-  admin_passport_status_readers = [
-    "gregory.j.baker@hrsdc-rhdcc.gc.ca",
-    "ken.blanchard@hrsdc-rhdcc.gc.ca",
-    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
-    "maxim.lam@hrsdc-rhdcc.gc.ca",
-    "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
-    "stefan.oconnell@hrsdc-rhdcc.gc.ca"
-  ]
+  admin_passport_status_readers = []
 
-  passport_status_writers = [
-    "gregory.j.baker@hrsdc-rhdcc.gc.ca",
-    "ken.blanchard@hrsdc-rhdcc.gc.ca",
-    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
-    "maxim.lam@hrsdc-rhdcc.gc.ca",
-    "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
-    "stefan.oconnell@hrsdc-rhdcc.gc.ca"
-  ]
+  passport_status_writers = []
 
-  admin_passport_status_writers = [
-    "gregory.j.baker@hrsdc-rhdcc.gc.ca",
-    "ken.blanchard@hrsdc-rhdcc.gc.ca",
-    "kristopher.charbonneau@hrsdc-rhdcc.gc.ca",
-    "maxim.lam@hrsdc-rhdcc.gc.ca",
-    "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
-    "stefan.oconnell@hrsdc-rhdcc.gc.ca"
-  ]
+  admin_passport_status_writers = []
 }
