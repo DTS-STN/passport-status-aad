@@ -39,7 +39,6 @@ inputs = {
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
@@ -47,7 +46,6 @@ inputs = {
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
@@ -55,7 +53,6 @@ inputs = {
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 
@@ -63,7 +60,6 @@ inputs = {
     "gregory.j.baker@hrsdc-rhdcc.gc.ca",
     "ken.blanchard@hrsdc-rhdcc.gc.ca",
     "sebastien.comeau@hrsdc-rhdcc.gc.ca",
-    "shaun.laughland@hrsdc-rhdcc.gc.ca",
     "stefan.oconnell@hrsdc-rhdcc.gc.ca"
   ]
 }
