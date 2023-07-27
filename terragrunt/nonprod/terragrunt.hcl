@@ -7,7 +7,7 @@ include "root" {
 }
 
 inputs = {
-  application_display_name       = "Passport Status (nonprod)"
+  application_display_name       = "Passport Status: API (nonprod)"
   application_identifier_uris    = ["api://passport-status-nonprod.esdc-edsc.gc.ca"]
   interop_service_principal_name = "interop-sa-esdc-backends-dev"
 
