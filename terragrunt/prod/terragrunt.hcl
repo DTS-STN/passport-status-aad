@@ -9,6 +9,7 @@ include "root" {
 inputs = {
   application_display_name       = "Passport Status: API"
   application_identifier_uris    = ["api://passport-status.esdc-edsc.gc.ca"]
+  application_notes              = "The Passport Status application is a public-facing web application designed to help Canadians request the status of their passport applications."
   interop_service_principal_name = "interop-sa-esdc-backends"
 
   application_spa_redirect_uris = [

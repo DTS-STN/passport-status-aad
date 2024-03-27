@@ -32,6 +32,7 @@ resource "azuread_application" "passport_status" {
   display_name          = var.application_display_name
   identifier_uris       = var.application_identifier_uris
   logo_image            = filebase64("assets/logo.png")
+  notes                 = var.application_notes
   owners                = data.azuread_users.application_owners.object_ids
   privacy_statement_url = var.application_privacy_statement_url
   terms_of_service_url  = var.application_terms_of_service_url
@@ -118,16 +119,16 @@ resource "azuread_application" "passport_status" {
 }
 
 resource "azuread_application_password" "passport_status" {
-  application_object_id = azuread_application.passport_status.object_id
-  display_name          = "Default secret"
-  end_date_relative     = "876000h"
+  application_id    = azuread_application.passport_status.id
+  display_name      = "Default secret"
+  end_date_relative = "876000h"
 }
 
 resource "azuread_service_principal" "passport_status" {
   # AAD enterprise applications are just specialized service principals
   # see: https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal
 
-  application_id               = azuread_application.passport_status.application_id
+  client_id                    = azuread_application.passport_status.client_id
   app_role_assignment_required = true
   owners                       = data.azuread_users.service_principal_owners.object_ids
 
