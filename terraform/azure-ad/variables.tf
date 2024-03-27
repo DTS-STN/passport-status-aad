@@ -18,6 +18,12 @@ variable "application_identifier_uris" {
   type        = set(string)
 }
 
+variable "application_notes" {
+  description = "A free text field to capture information about the service principal, typically used for operational purposes."
+  type        = string
+  default     = null
+}
+
 variable "application_privacy_statement_url" {
   description = "URL of the application's privacy statement."
   type        = string
